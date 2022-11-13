@@ -60,4 +60,11 @@ Verificamos que se haya instalado pip correctamente.
 Una vez hemos conseguido pip y creado nuestra carpeta de trabajo, lo que prosigue es instalar Django con pip con el siguiente comando
 <br>
       
-pipenv install django
+    pipenv install django
+El siguiente paso sera entrar al <b>pipenv shell<b> para que todos los comandos que escribamos afecten directamente a ese proyecto
+    <br>
+    
+    pipenv shell
+Hasta este punto si todo sale bien, te debera de aparecer al lado izquierdo en la terminal algo similar a esto <b>(base)<b>
+    <br>
+    
