@@ -26,6 +26,24 @@ Links de descarga:
     
 
 # Instalacion de las herramientas necesarias en el SO
+Instalacion del IDE/Editor Visual Studio Code : 
+Descargamos el archivo <b>.rmp</b> del siguiente sitio
+<div align="center">
+    <a href="https://code.visualstudio.com/download">Ir al sitio oficial de descarga</a>
+ </div>
+Ir a la carpeta en donde se almaceno el .rpm, regularmente por defecto se va a la carpeta de Descargas. Con el siguiente comando podremos ir a esa carpeta.
+  <br>
+  
+    cd $HOME/Descargas/
+Una vez estando ahi ejecutamos el siguiente comando para instalar el editor.
+  <br>
+  
+    sudo rpm -i code-1.73.1-1667967421.el7.x86_64.rpm    
+    
+
+
+
+
 Debido a que estamos en GNU/Linux no tendremos que realizar pasos como descargar o actualizar la version de python. Debido a que por defecto
 ya viene integrada la version mas reciente o de las mas recientes de python3.
     
