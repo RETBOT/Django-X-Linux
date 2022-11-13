@@ -121,4 +121,13 @@ Para creacion de aplicaciones en django lo hacemos con el siguiente comando.
     python manage.py migrate
   
     
-    
+# Instalacion de Heroku
+Heroku es un servicio de nube en el cual alojaremos nuestra aplicacion web. Para instalarlo primero tendremos 
+que instalar el gestor de paquetes.
+  <br>
+  
+    sudo dnf install npm
+Una vez teniendo el gestor de paquetes de node, procederemos a instalar heroku con el siguiente comando: 
+  <br>
+  
+    sudo npm install heroku
