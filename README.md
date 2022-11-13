@@ -120,6 +120,11 @@ Para creacion de aplicaciones en django lo hacemos con el siguiente comando.
     
     python manage.py migrate
   
+ # Creacion de super usuario para la administracion del proyecto
+ Lo cremos con el siguiente comando : 
+ <br>
+ 
+    python manage.py createsuperuser
     
 # Instalacion de Heroku
 Heroku es un servicio de nube en el cual alojaremos nuestra aplicacion web. Para instalarlo primero tendremos 
