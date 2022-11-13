@@ -56,4 +56,8 @@ Verificamos que se haya instalado pip correctamente.
     
     pip --help
     
-                                       
+# Preparativos para el uso de Django
+Una vez hemos conseguido pip y creado nuestra carpeta de trabajo, lo que prosigue es instalar Django con pip con el siguiente comando
+<br>
+      
+    pipenv install django
