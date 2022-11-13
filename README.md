@@ -20,14 +20,14 @@ Una vez teniendo la iso, vamos a requerir un virtualizador. Puede ser cualquiera
 
 Links de descarga: 
   <br>
-  <b> VMware : https://www.vmware.com/mx/products/workstation-player/workstation-player-evaluation.html <b> 
+  <b> VMware : <b> https://www.vmware.com/mx/products/workstation-player/workstation-player-evaluation.html 
   <br>
-  <b> Virtual Box: https://www.virtualbox.org/ <b>
+  <b> Virtual Box: <b>https://www.virtualbox.org/ 
     
 
 # Instalacion de las herramientas necesarias en el SO
 Debido a que estamos en GNU/Linux no tendremos que realizar pasos como descargar o actualizar la version de python. Debido a que por defecto
- ya viene integrada la version mas reciente o de las mas recientes de python3.
+ya viene integrada la version mas reciente o de las mas recientes de python3.
     
  <div align="center">
    <h2> Entorno virtual de python <h2>
@@ -35,21 +35,22 @@ Debido a que estamos en GNU/Linux no tendremos que realizar pasos como descargar
      
 No son sumamente necesarios para el funcionamiento del proyecto, mas sin embargo son <b>altamente recomendados<b> usarlos en entornos 
 de produccion. Por lo que en este taller lo manejaremos por entornos virtuales para mejor uso practico.
-
-     <br>
 <div align="center">
-  <h5> Comandos necesarios desde la terminal <h5>
+  <h4> Comandos necesarios desde la terminal <h4>
     </div>
  Deberemos de hacer una serie de pasos en la terminal antes de ir a la codificacion en Visual Studio Code.
   <b> Creacion de carpetas <b>
   <br>
-  mkdir congresoDjango
+  
+ mkdir congresoDjango
   <b> Cambiar de directorio a la carpeta que creamos <b>
   <br>
-  cd congresoDjango/
+  
+cd congresoDjango/
   <br>
   <b> Instalacion de pip <b>
-  sudo dnf install python3-pip
+      
+sudo dnf install python3-pip
     
     
                                        
