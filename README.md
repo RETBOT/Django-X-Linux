@@ -55,6 +55,10 @@ Verificamos que se haya instalado pip correctamente.
     <br>
     
     pip --help
+Instalacion del entorno de virtual de python
+    <br>
+    
+    pip3 install pipenv
     
 # Preparativos para el uso de Django
 Una vez hemos conseguido pip y creado nuestra carpeta de trabajo, lo que prosigue es instalar Django con pip con el siguiente comando
@@ -73,8 +77,30 @@ Hasta este punto si todo sale bien, te debera de aparecer al lado izquierdo en l
  Hemos llegado a nuestro primer momento de interaccion con django, para comenzar nuestro proyecto introducimos el siguiente comando.
   <br>
     
-    django-admin startproject congreso
+    django-admin startproject congreso .
     
+   Se anade el . al final para que nos genere los archivos en el directorio actual
+   Verificamos si se nos han anadido los archivos con el siguiente comando :
+    <br>
+    
+    tree
+ Arrancamos el motor de django por primera vez.
+    <br>
+    
+    python manage.py runserver
+ <div align="center">
+   <h3> Creacion de aplicaciones </h3>
+ </div>
+Para creacion de aplicaciones en django lo hacemos con el siguiente comando.
+    <br>
+    
+    django-admin startapp blog
+<div align="center">
+ <h3>Migracion de la base de datos<h3>
+ </div>
+    <br>
+    
+    python manage.py migrate
   
     
     
