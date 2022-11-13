@@ -51,6 +51,9 @@ de produccion. Por lo que en este taller lo manejaremos por entornos virtuales p
   <b> Instalacion de pip <b>
       
     sudo dnf install python3-pip
+Verificamos que se haya instalado pip correctamente. 
+    <br>
     
+    pip --help
     
                                        
