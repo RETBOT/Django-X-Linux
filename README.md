@@ -42,15 +42,15 @@ de produccion. Por lo que en este taller lo manejaremos por entornos virtuales p
   <b> Creacion de carpetas <b>
   <br>
   
- mkdir congresoDjango
+    mkdir congresoDjango
   <b> Cambiar de directorio a la carpeta que creamos <b>
   <br>
   
-cd congresoDjango/
+    cd congresoDjango/
   <br>
   <b> Instalacion de pip <b>
       
-sudo dnf install python3-pip
+    sudo dnf install python3-pip
     
     
                                        
