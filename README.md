@@ -31,11 +31,12 @@ Debido a que estamos en GNU/Linux no tendremos que realizar pasos como descargar
     
  <div align="center">
    <h2> Entorno virtual de python <h2>
-     </div>
+ </div>
      
 No son sumamente necesarios para el funcionamiento del proyecto, mas sin embargo son <b>altamente recomendados<b> usarlos en entornos 
 de produccion. Por lo que en este taller lo manejaremos por entornos virtuales para mejor uso practico.
-<br>
+
+     <br>
 <div align="center">
   <h5> Comandos necesarios desde la terminal <h5>
     </div>
