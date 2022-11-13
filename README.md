@@ -67,4 +67,14 @@ El siguiente paso sera entrar al <b>pipenv shell<b> para que todos los comandos 
     pipenv shell
 Hasta este punto si todo sale bien, te debera de aparecer al lado izquierdo en la terminal algo similar a esto <b>(base)<b>
     <br>
+<div align="center">
+  <h2> Creacion de proyecto de django </h2>
+    </div>
+ Hemos llegado a nuestro primer momento de interaccion con django, para comenzar nuestro proyecto introducimos el siguiente comando.
+  <br>
+    
+    django-admin startproject congreso
+    
+  
+    
     
