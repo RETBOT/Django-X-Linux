@@ -461,3 +461,28 @@ Con nuestras URLConfs y vistas ahora completas, solo nos falta la tercera pieza 
 Comience creando nuestro directorio de plantillas a nivel de proyecto con los tres archivos de plantilla. <br>
    
 ![Django-plantillas](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/plantillas.png)
+
+Luego actualice settings.py para que Django identifique como buscar las plantillas. <br>
+TEMPLATES = [ <br>
+    { <br>
+      ... <br>
+        'DIRS': [str(BASE_DIR.joinpath('plantillas'))], <br>
+      ... <br>
+            ], <br>
+        }, <br>
+    }, <br>
+]   <br>
+   
+   
+Luego actualice la plantilla base.html de la siguiente manera.
+<!-- plantillas/base.html -->
+<html>
+  <head>
+    <title>Blog Django</title>
+  </head>
+  <body>
+      {% block content %}
+     
+      {% endblock content %}
+  </body>
+</html>   
