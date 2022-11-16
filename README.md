@@ -316,3 +316,16 @@ Al usar esta funcionalidad de subclase, automáticamente tenemos acceso a todo d
 Para el titulo, estamos limitando la longitud a 200 caracteres y para el cuerpo estamos usando un TextField que se expandira automaticamente según sea necesario para adaptarse al texto del usuario. Hay muchos tipos de campos disponibles en Django; puedes ver la lista completa aquí: https://es.acervolima.com/lista-de-campos-y-tipos-de-datos-del-modelo-django/ <br>
    
 Para el campo de autor, usamos una ForeignKey que permite una relacion de muchos a uno. Eso significara que un usuario determinado puede ser el autor de muchas publicaciones de blog diferentes, pero no al reves. La referencia es al modelo de usuario integrado que Django proporciona para la autenticacion. Para todas las relaciones de muchos a uno, como ForeignKey, tambien debemos especificar una opcion on_delete. <br>
+
+Ahora que se creó nuestro nuevo modelo de base de datos, debemos crear un nuevo registro de migración para él y migrar el cambio a nuestra base de datos. Detenga el servidor con Control + c. Este proceso de dos pasos se puede completar con el siguiente comando:<br>
+
+(blog) [RETBOT@RETBOT blog]python manage.py makemigrations publicacioneses<br>
+Migrations for 'publicaciones':<br>
+  publicaciones/migrations/0001_initial.py<br>
+    - Create model Publicacion<br>
+(blog) [RETBOT@RETBOT blog]$ python manage.py migrate<br>
+Operations to perform:<br>
+  Apply all migrations: admin, auth, contenttypes, publicaciones, sessions<br>
+Running migrations:<br>
+  Applying publicaciones.0001_initial... OK<br>
+(blog) [RETBOT@RETBOT blog]$ <br>
