@@ -671,7 +671,7 @@ y al final del archivo
     <a class="navbar-brand" href="{% url 'inicio' %}">
       Blog Django
     </a>
-    <div id="navbarSupportedContent">
+    <div class="navbar-collapse" id="navbarSupportedContent">
       {% if user.is_authenticated %}
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
