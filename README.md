@@ -1299,37 +1299,224 @@ Superuser created successfully. <br>
 python manage.py createsuperuser
 ```   
     
+## Login  
+Creamos una carpeta en plantillas llamada registration y dentro de la carpeta creamos un nuevo archivo llamado login.html
+[plantillas_login](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/plantillas_login.png)   
+``` 
+<!-- plantillas/registration/login.html -->
+{% extends 'base.html' %}
+{% block title %}- Acceso{% endblock title %}
+
+{% block content %}
+<h1>Bienvenido</h1>
+    <h2>Iniciar Sesión</h2><br>
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-success ml-2" type="submit" value="Acceder (Iniciar Sesión)" style="color: black;">
+    </form>
+    <br>
+    <a href="{% url 'password_reset' %}" type="button" class="formulario__submit" style="color: black;">¿Olvido su contraseña?</a>
+{% endblock content %}
+```   
+En la misma carpeta creamos un archivo llamado signup.html, el cual tendrá el siguiente código:  
+``` 
+<!-- plantillas/registration/signup.html -->
+{% extends 'base.html' %}
+{% block title %}-Registro{% endblock title %} 
+
+{% block content %}
+<br><h2>Registro</h2><br>
+<form method="post"> {% csrf_token %} 
+    {{ form.as_p }}
+    <input class="btn btn-success ml-2" type="submit" value="Registro" style="color: black;">
+</form>
+{% endblock content %} 
+``` 
+Agregamos la url para cambiar contraseña, salir, acceder e iniciar sesión a base.html
+``` 
+<a class="dropdown-item" href="{% url 'password_change' %}">
+     Cambiar Contraseña
+</a>
+<a class="dropdown-item" href="{% url 'logout' %}">
+     Salir
+</a>
+``` 
+```    
+<a href="{% url 'login' %}" class="btn btn-outline-secondary">
+  Acceder
+</a>
+<a href="{% url 'signup' %}" class="btn btn-primary ml-2">
+  Registrarse
+</a>
+```  
+Ahora crearemos un archivo llamado password_change_done y password_change_form para cambiar la contraseña
+```  
+<!-- plantillas/registration/password_change_form.htnl -->
+{% extends 'base.html' %}
+
+{% block title %}- Cambio de contrasela{% endblock title %}
+
+{% block content %}
+
+    <h2>Cambio de contraseña</h2>
+    <p>Por favor introduzca su contrasela anterior.  por razones de seguridad,
+        y luego introduzca su nueva contraseña dos veces para poder verificar que la escribió 
+        correctamente.</p>
+        <div class="registro">
+            <div class="registro_contenido">
+        <form  method="post">{% csrf_token %}{{ form.as_p }}
+            <input class="btn btn-success ml-2" type="submit" value="Cambiar contraseña" style="color: black;">
+        </form>
+    </div>
+</div>
+{% endblock content %}
+```   
     
+```  
+<!-- plantillas/registration/password_change_done.html -->
+{% extends 'base.html' %}
+
+{% block title %}- Contraseña modificada satisfactoriamente {% endblock title %}  
+
+{% block content %}
+    <h1>Contraseña modificada satisfactoriamente</h1>
+    <p style="text-align: center;">Su contraseña fue modificada</p>
+{% endblock content %}
+```   
+Ahora para restaurar la contraseña debemos configurar el envió de correos electrónicos en django
+para eso necesitamos entrar a la carpeta config y en el archivo settings.py agregar los siguiente: <br>
+La primera linea sirve para hacer pruebas desde la consola  
+```  
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+```  
+Lo segundo sirve para configurar el envio de correos electronicos desde nuestra cuenta de google
+```   
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'blogdjango4@gmail.com'
+EMAIL_HOST_PASSWORD = 'contraseña'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'blogdjango4@gmail.com' 
+```  
+Para agregar la contraseña debemos entrar al perfil y en administrar tu cuenta>Seguridad
+![AdmCuenta](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/adminCuenta.png)  
+![Seguridad](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/seguridad.png)
+
+Debemos tener activada la verificación en 2 pasos
+![ver2pasos](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/verif2pasos.png)
+y seleccionaremos la contraseña de aplicaciones
+![contrasenha](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/GeneraContrase%C3%B1a.png)
+Seleccionamos generar y se mostrara la contraseña que ingresaremos EMAIL_HOST_PASSWORD en config/settings.py <br>
+
+Ya teniendo la configuración, crearemos los siguientes archivos <br>
+password_change_done.html <br>
+password_change_form.html <br>
+password_reset_complete.html <br>
+password_reset_confirm.html <br>
+password_reset_done.html <br>
+password_reset_form.html <br>
+![plantillas](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/PlantillasFull.png)
     
+Los cuales tendran los siguientes codigos:  
+```  
+<!-- plantillas/registration/password_change_done.html -->
+{% extends 'base.html' %}
+
+{% block title %}- Contraseña modificada satisfactoriamente {% endblock title %}  
+
+{% block content %}
+    <h1>Contraseña modificada satisfactoriamente</h1>
+    <p style="text-align: center;">Su contraseña fue modificada</p>
+{% endblock content %}  
+```  
     
+```  
+<!-- plantillas/registration/password_change_form.htnl -->
+{% extends 'base.html' %}
+
+{% block title %}- Cambio de contrasela{% endblock title %}
+
+{% block content %}
+
+    <h2>Cambio de contraseña</h2>
+    <p>Por favor introduzca su contrasela anterior.  por razones de seguridad,
+        y luego introduzca su nueva contraseña dos veces para poder verificar que la escribió 
+        correctamente.</p>
+        <div class="registro">
+            <div class="registro_contenido">
+        <form  method="post">{% csrf_token %}{{ form.as_p }}
+            <input class="btn btn-success ml-2" type="submit" value="Cambiar contraseña" style="color: black;">
+        </form>
+    </div>
+</div>
+{% endblock content %}
+``` 
     
+``` 
+<!-- plantillas/registration/password_reset_complete.htnl -->
+{% extends 'base.html' %}
+
+{% block title %}- Restablecimiento de contraseña completo {% endblock title %} 
+
+{% block content %}
+    <h1>Restablecimiento de contraseña completo</h1>
+    <p>Su nueva contrasela ha sido reestablecida. <br>Puede iniciar sesión ahora en  la 
+    <a href="{% url 'login' %}">Página de acceso</a>
+    </p>
+{% endblock content %}
+```
     
+```  
+<!-- plantillas/registration/password_reset_confirm.htnl -->
+{% extends 'base.html' %}
+
+{% block title %}- Introduzca su nueva contraseña {% endblock title %} 
+
+{% block content %}
+    <h1>Establezca su nueva contraseña</h1>
+    <div class="registro">
+        <div class="registro_contenido">
+    <form method="post"> {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-success ml-2" type="submit" value="Cambiar mi contraseña" style="color: black;">
+    </form>
+</div>
+</div>
+{% endblock content %}
+```
     
+``` 
+<!-- plantillas/registration/password_reset_done.htnl -->
+{% extends 'base.html' %}
+
+{% block title %}- Email enviado {% endblock title %}
+
+{% block content %}
+    <h1>Verifique su buzón de entrada</h1>
+    <p>Le hemos enviado instrucciónes para restablecer su contraseña, por una nueva.
+        Deberoa de recibir el correo en unos minutos! </p>
+{% endblock content %}
+```
     
+```  
+<!-- plantillas/registration/password_reset_form.htnl -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>¿Olvido su contraseña?</h1>
+    <p>Introdusca su email abajo, y le enviaremos instrucciones para establecer una nueva contraseña </p>
+    <div class="registro">
+        <div class="registro_contenido">
+    <form method="post"> {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-success ml-2" type="submit" value="Enviarme instrucciones" style="color: black;">
+    </form>
+    </div>
+</div>
+{% endblock content %}
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+```
     
     
     
