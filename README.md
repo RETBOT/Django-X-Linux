@@ -1399,14 +1399,14 @@ EMAIL_HOST_PASSWORD = 'contraseña'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'blogdjango4@gmail.com' 
 ```  
-Para agregar la contraseña debemos entrar al perfil y en administrar tu cuenta>Seguridad
-![AdmCuenta](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/adminCuenta.png)  
-![Seguridad](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/seguridad.png)
+Para agregar la contraseña debemos entrar al perfil y en administrar tu cuenta>Seguridad <br>
+![AdmCuenta](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/adminCuenta.png)  <br>
+![Seguridad](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/seguridad.png) <br>
 
-Debemos tener activada la verificación en 2 pasos
-![ver2pasos](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/verif2pasos.png)
-y seleccionaremos la contraseña de aplicaciones
-![contrasenha](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/GeneraContrase%C3%B1a.png)
+Debemos tener activada la verificación en 2 pasos <br>
+![ver2pasos](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/verif2pasos.png) <br>
+y seleccionaremos la contraseña de aplicaciones <br>
+![contrasenha](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/GeneraContrase%C3%B1a.png)<br>
 Seleccionamos generar y se mostrara la contraseña que ingresaremos EMAIL_HOST_PASSWORD en config/settings.py <br>
 
 Ya teniendo la configuración, crearemos los siguientes archivos <br>
