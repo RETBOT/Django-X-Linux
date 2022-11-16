@@ -555,3 +555,75 @@ Si vuelve a iniciar el servidor Django: python manage.py runserver. Y actualice 
 ![Django-inicio](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/blogInicio.png)
 ![Django-publicaciones](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/blogPublicaiones.png)   
    
+## Imágenes al Blog
+Como queremos usar imágenes, necesitamos instalar la librería Pillow, que es necesaria para usar el modelo de datos de Django en imagenes <br>
+(blog) [RETBOT@RETBOT blog]$  pip install pillow
+   
+    pip install pillow
+
+Después debemos entrar en blog/models.py y agregaremos lo siguiente: 
+```   
+   ...
+     imagen = models.ImageField(upload_to="img_pub", null=True)
+   ...
+```
+ImageFiel es un FileFiel con cargas restringidas a formato de imágenes. <br>   
+<br> 
+Después crearemos una ruta donde cargar las imágenes: <br> 
+![Ruta-Imgs](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/rutaImgs.png)
+   
+   
+Dentro del archivo config/settings.py modificaremos lo siguiente:
+```   
+import os
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+```   
+   
+y en config/urls.py agregaremos lo siguiente:    
+```   
+from django.contrib import admin
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',include('blog.urls')),
+]
+
+urlpatterns += static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+```      
+
+Ahora entramos en la terminal:  <br> 
+(blog) [RETBOT@RETBOT blog]$  python manage.py makemigrations blog <br> 
+Migrations for 'blog': <br> 
+  blog/migrations/0002_publicacion_img.py <br> 
+    - Add field img to publicacion    <br> 
+```  
+python manage.py makemigrations blog   
+```     
+
+(blog) [RETBOT@RETBOT blog]$  python manage.py migrate <br> 
+Operations to perform: <br> 
+  Apply all migrations: admin, auth, blog, contenttypes, sessions <br> 
+Running migrations: <br> 
+  Applying blog.0002_publicacion_img... OK <br> 
+(blog) [RETBOT@RETBOT blog]$     <br> 
+```     
+python manage.py migrate   
+``` 
+   
+Iniciamos el servidor para verificar si las imágenes se pueden agregar a las publicaciones.<br>
+(blog) [RETBOT@RETBOT blog]$ python manage.py runserver<br>
+```     
+python manage.py runserver
+```    
+
+Entramos en http://127.0.0.1:8000/admin y creamos una nueva publicación <br>
+![Img-Publicacion](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/PublicacionImg.png)   
+   
