@@ -240,17 +240,17 @@ Running migrations: <br>
     python manage.py migrate  
    
 Para asegurarnos de que Django conozca nuestra nueva aplicación, abra su editor de texto y agregue la nueva aplicación a INSTALLED_APPS en nuestro archivo settings.py ubicado en la carpeta config:
-
-INSTALLED_APPS = [ <br>
-    'django.contrib.admin', <br>
-    'django.contrib.auth', <br>
-    'django.contrib.contenttypes', <br>
-    'django.contrib.sessions', <br>
-    'django.contrib.messages', <br>
-    'django.contrib.staticfiles', <br>
-    'blog', <br>
-] <br>
-   
+```
+INSTALLED_APPS = [ 
+    'django.contrib.admin', 
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions', 
+    'django.contrib.messages', 
+    'django.contrib.staticfiles', 
+    'blog', 
+]
+```
 (blog) [RETBOT@RETBOT blog]$ python manage.py runserver <br>
 Watching for file changes with StatReloader <br>
 Performing system checks... <br>
@@ -309,37 +309,39 @@ Crearemos una nueva aplicación para administrar las publicaciones de nuestro bl
     tree   
 
 Para asegurarnos de que Django conozca nuestra nueva aplicación, agregue la nueva aplicación a INSTALLED_APPS en nuestro archivo settings.py ubicado en la carpeta config:
-
-INSTALLED_APPS = [ <br>
-    'django.contrib.admin', <br>
-    'django.contrib.auth', <br>
-    'django.contrib.contenttypes', <br>
-    'django.contrib.sessions', <br>
-    'django.contrib.messages', <br>
-    'django.contrib.staticfiles', <br>
-    'blog', <br>
-    'publicaciones',  # agg <br>
-] <br>
-
+```
+INSTALLED_APPS = [ 
+    'django.contrib.admin', 
+    'django.contrib.auth', 
+    'django.contrib.contenttypes', 
+    'django.contrib.sessions', 
+    'django.contrib.messages', 
+    'django.contrib.staticfiles', 
+    'blog', 
+    'publicaciones',  # agg 
+] 
+```
 
 Esto significa que la instalación esa completada. A continuación crearemos nuestro modelo de base de datos para publicaciones de blog.<br>
  
 ## Modelos de base de datos
-#### #publicaciones/models.py
-from django.db import models <br>
-from django.contrib.auth import get_user_model<br>
+```
+#publicaciones/models.py
+from django.db import models 
+from django.contrib.auth import get_user_model
 
-class Publicacion(models.Model):<br>
-  titulo = models.CharField(max_length=200)<br>
-  autor = models.ForeignKey(<br>
-        get_user_model(),<br>
-        on_delete=models.CASCADE,<br>
-    )<br>
-  cuerpo = models.TextField()<br>
-<br>
-  def __str__(self):<br>
-    return self.titulo<br>
-<br>
+class Publicacion(models.Model):
+  titulo = models.CharField(max_length=200)
+  autor = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+    )
+  cuerpo = models.TextField()
+
+  def __str__(self):
+    return self.titulo
+```
+   
 En la parte superior, estamos importando los modelos de la clase y luego creando una subclase de models.Model llamada Publicación.<br>
 Al usar esta funcionalidad de subclase, automáticamente tenemos acceso a todo dentro de django.db.models.Models y podemos agregar campos y métodos adicionales según se desee. <br>
 Para el titulo, estamos limitando la longitud a 200 caracteres y para el cuerpo estamos usando un TextField que se expandira automaticamente según sea necesario para adaptarse al texto del usuario. Hay muchos tipos de campos disponibles en Django; puedes ver la lista completa aquí: https://es.acervolima.com/lista-de-campos-y-tipos-de-datos-del-modelo-django/ <br>
@@ -382,10 +384,12 @@ Ahora comience a ejecutar el servidor Django nuevamente con el comando python ma
 ![Admin1-Django](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/Admin.png)
 
 Ahora agregaremos las publicaciones al administrador, entraremos a  publicaciones/admin.py <br>
-from django.contrib import admin<br>
-from .models import Publicacion<br>
-admin.site.register(Publicacion)<br>
-
+```
+from django.contrib import admin
+from .models import Publicacion
+admin.site.register(Publicacion)
+```
+   
 Si actualiza la página, verá la actualización.<br>
 ![Admin2-Django](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/Admin2.png)   
 Agreguemos dos publicaciones de blog para que tengamos algunos datos de muestra con los que trabajar. Haga clic en el botón + Agregar junto a Publicaciones para crear una nueva entrada. Asegúrate de agregar un "autor" a cada publicación también, ya que por defecto todos los campos del modelo son obligatorios. Si intenta ingresar una publicación sin un autor, verá un error. Si quisiéramos cambiar esto, podríamos agregar opciones de campo a nuestro modelo para hacer que un campo dado sea opcional o llenarlo con un valor predeterminado. <br>
@@ -404,35 +408,40 @@ Cree un nuevo archivo urls.py dentro de nuestro blog y en las publicaciones:<br>
 <br>
    
 Ahora agregaremos el siguiente código: <br>
- .# blog/urls.py <br>
+```
+# blog/urls.py 
 from django.urls import path <br>
-from .views import VistaPaginaInicio <br>
- <br>
-urlpatterns = [ <br>
-  path('', VistaPaginaInicio.as_view(), name='inicio'), <br>
-] <br>
- <br>
- .# publicaciones/urls.py <br>
-from django.urls import path <br>
-from .views import VistaListaPublicaciones <br>
- <br>
-urlpatterns = [ <br>
-    path('',VistaListaPublicaciones.as_view(), name='lista_publicaciones'), <br>
-] <br>
- <br>
+from .views import VistaPaginaInicio 
+   
+urlpatterns = [ 
+  path('', VistaPaginaInicio.as_view(), name='inicio'),
+] 
+```
+   
+```
+ # publicaciones/urls.py 
+from django.urls import path
+from .views import VistaListaPublicaciones 
+
+urlpatterns = [ 
+    path('',VistaListaPublicaciones.as_view(), name='lista_publicaciones'), 
+]
+```
+   
 Estamos importando nuestras vistas que se crearán próximamente en la parte superior. La cadena vacía '' le dice a Python que coincida con todos los valores y la convertimos en una URL nombrada, inicio, a la que podemos referirnos en nuestras vistas más adelante. Si bien es opcional agregar una URL con nombre, es una práctica recomendada que debe adoptar, ya que ayuda a mantener las cosas organizadas a medida que aumenta la cantidad de URL.
  <br>
 También deberíamos actualizar nuestro archivo urls.py a nivel de proyecto para que sepa reenviar todas las solicitudes directamente a la aplicación del blog.
  <br>
-   
-from django.contrib import admin <br>
-from django.urls import path, include <br>
- <br>
-urlpatterns = [ <br>
-    path('admin/', admin.site.urls), <br>
-    path('',include('blog.urls')), <br>
-    path('publicaciones/', include('publicaciones.urls')), <br>
-] <br>
+ ```
+from django.contrib import admin
+from django.urls import path, include 
+
+urlpatterns = [ 
+    path('admin/', admin.site.urls),
+    path('',include('blog.urls')),
+    path('publicaciones/', include('publicaciones.urls')),
+]
+```
  <br>   
 Hemos agregado include en la segunda y tercer línea un patrón de URL con una expresión regular de cadena vacía "" que indica que las solicitudes de URL deben redirigirse tal cual a las URL del blog y a las URL de publicaciones para obtener más instrucciones.   
  <br>   
@@ -440,20 +449,21 @@ Hemos agregado include en la segunda y tercer línea un patrón de URL con una e
    
 ## Vistas
 Vamos a utilizar vistas basadas en clases, pero si quieres ver una forma basada en funciones para crear una aplicación de blog, te recomiendo el Tutorial de Django Girls. <br> 
-.# blog/views.py <br> 
-from django.views.generic import TemplateView <br> 
- <br> 
-class VistaPaginaInicio(TemplateView): <br> 
-  template_name = 'inicio.html' <br> 
-   <br> 
-.#publicaciones/views.py <br> 
-from django.views.generic import ListView <br> 
-from .models import Publicacion <br> 
- <br> 
-class VistaListaPublicaciones(ListView): <br> 
-    model = Publicacion <br> 
-    template_name = 'lista_publicaciones.html'   <br> 
-<br> 
+```
+# blog/views.py 
+from django.views.generic import TemplateView
+
+class VistaPaginaInicio(TemplateView): 
+  template_name = 'inicio.html'
+ 
+#publicaciones/views.py
+from django.views.generic import ListView 
+from .models import Publicacion 
+
+class VistaListaPublicaciones(ListView):
+    model = Publicacion
+    template_name = 'lista_publicaciones.html' 
+```   
 En las dos líneas superiores importamos ListView y nuestro modelo de base de datos Publicacion. Luego subclasificamos ListView y agregamos enlaces a nuestro modelo y plantilla. Esto nos ahorra mucho código en comparación con implementarlo todo desde cero. <br> 
    
 ## Templates
@@ -463,26 +473,85 @@ Comience creando nuestro directorio de plantillas a nivel de proyecto con los tr
 ![Django-plantillas](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/plantillas.png)
 
 Luego actualice settings.py para que Django identifique como buscar las plantillas. <br>
-TEMPLATES = [ <br>
-    { <br>
-      ... <br>
-        'DIRS': [str(BASE_DIR.joinpath('plantillas'))], <br>
-      ... <br>
-            ], <br>
-        }, <br>
-    }, <br>
-]   <br>
-   
+```
+   TEMPLATES = [
+    {
+      ... 
+        'DIRS': [str(BASE_DIR.joinpath('plantillas'))], 
+      ...
+            ],
+        }, 
+    }, 
+]  
+```   
    
 Luego actualice la plantilla base.html de la siguiente manera. <br>
-<! -- plantillas/base.html --> <br>
-<h tml> <br>
-  <h ead> <br>
-    <t itle>Blog Django</title> <br>
-  </h ead> <br>
-  <b ody> <br>
-      {% block content %} <br>
-      <br>
-      {% endblock content %} <br>
-  </b ody> <br>
-</h tml>    <br>
+```
+<! -- plantillas/base.html -->
+<html>
+  <head>
+    <title>Blog Django</title> 
+  </head>
+  <body>
+      {% block content %} 
+
+      {% endblock content %}
+  </body> 
+</html>
+```
+   
+Tenga en cuenta que el código entre {% block content%} y {% endblock content%} se puede completar con otras plantillas. Hablando de eso, aquí está el código para inicio.html. <br>
+
+Luego actualice la plantilla base.html de la siguiente manera.
+   
+```
+<!-- plantillas/base.html -->
+<html>
+  <head>
+    <title>Blog Django {% block title%}{% endblock title%}</title>
+  </head>
+  <body>
+      {% block content %}
+     
+      {% endblock content %}
+  </body>
+</html>   
+```
+Tenga en cuenta que el código entre {% block content%} y {% endblock content%} se puede completar con otras plantillas. Hablando de eso, aquí está el código para inicio.html. <br>
+   
+```
+<!-- plantillas/inicio.html -->
+{% extends 'base.html' %}
+
+{% block title%}- Inicio{% endblock title%}
+
+{% block content %}
+<a href="{% url 'inicio' %}"><h1>Blog en Django</h1></a>
+<a href="{% url 'lista_publicaciones' %}">Publicaciones Blog</a>
+{% endblock content %}   
+```   
+   
+```   
+ <!-- plantillas/lista_publicaciones.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  {% for pub in object_list %}
+  <div>
+    <h2>
+      <a href="#"> {{ pub.titulo }}</a>
+      <p>{{ pub.cuerpo }}</p>
+    </h2>
+  </div>
+  {% endfor %}
+{% endblock content %}  
+   
+```      
+   
+En la parte superior notamos que esta plantilla extiende base.html y luego envuelve nuestro código deseado con bloques de contenido. Usamos el lenguaje de plantillas Django para configurar un bucle for simple para cada publicación de blog. Tenga en cuenta que config proviene de ListView y contiene todos los objetos en nuestra vista.<br>
+ <br>
+Si vuelve a iniciar el servidor Django: python manage.py runserver. Y actualice http://127.0.0.1:8000/, podemos ver que está funcionando.   <br> 
+   
+![Django-inicio](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/blogInicio.png)
+![Django-publicaciones](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/blogPublicaiones.png)   
+   
