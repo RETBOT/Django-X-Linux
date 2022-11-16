@@ -162,7 +162,12 @@ Para empezar a configurar nuestro proyecto, iniciamos el entorno virtual:
 Launching subshell in virtual environment...<br>
  . /home/RETBOT/.local/share/virtualenvs/blog-YSH-3orc/bin/activate<br>
 
+    pipenv shell  
+   
 (blog) [RETBOT@RETBOT blog]$ django-admin startproject config .<br>
+   
+    django-admin startproject config .  
+   
 (blog) [RETBOT@RETBOT blog]$ tree<br>
 .<br>
 ├── config <br>
@@ -177,8 +182,13 @@ Launching subshell in virtual environment...<br>
  <br>
 1 directory, 8 files <br>
    
+    tree  
+   
 Creamos una aplicación llamada blog, que sera la entrada inicial de nuestra pagina <br>
 (blog) [RETBOT@RETBOT blog]$ python manage.py startapp blog <br>
+   
+    python manage.py startapp blog    
+   
 (blog) [RETBOT@RETBOT blog]$ tree <br>
 . <br>
 ├── blog <br>
@@ -200,8 +210,10 @@ Creamos una aplicación llamada blog, que sera la entrada inicial de nuestra pag
 ├── Pipfile <br>
 └── Pipfile.lock <br>
 
+    tree    
+   
 Ahora aplicaremos los cambios en nuestra aplicacion <br>
-(blog) [RETBOT@RETBOT blog]$  python manage.py migrate <br>
+(blog) [RETBOT@RETBOT blog]$ python manage.py migrate <br>
 Operations to perform: <br>
   Apply all migrations: admin, auth, contenttypes, sessions <br>
 Running migrations: <br>
@@ -225,6 +237,8 @@ Running migrations: <br>
   Applying sessions.0001_initial... OK <br>
 (blog) [RETBOT@RETBOT blog]$  <br>
    
+    python manage.py migrate  
+   
 Para asegurarnos de que Django conozca nuestra nueva aplicación, abra su editor de texto y agregue la nueva aplicación a INSTALLED_APPS en nuestro archivo settings.py ubicado en la carpeta config:
 
 INSTALLED_APPS = [ <br>
@@ -236,8 +250,6 @@ INSTALLED_APPS = [ <br>
     'django.contrib.staticfiles', <br>
     'blog', <br>
 ] <br>
-
-    python manage.py runserver
    
 (blog) [RETBOT@RETBOT blog]$ python manage.py runserver <br>
 Watching for file changes with StatReloader <br>
@@ -250,11 +262,16 @@ Starting development server at http://127.0.0.1:8000/ <br>
 Quit the server with CONTROL-C. <br>
 
 Si navega a http://127.0.0.1:8000/ <br>
+   
+    python manage.py runserver   
 
 ![Run-Django](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/DjangoRun.png)
 
 Crearemos una nueva aplicación para administrar las publicaciones de nuestro blog  <br>
 (blog) [RETBOT@RETBOT blog]python manage.py startapp publicaciones <br>
+   
+    python manage.py startapp publicaciones 
+   
 (blog) [RETBOT@RETBOT blog]$ tree <br>
 . <br>
 ├── blog <br>
@@ -289,6 +306,7 @@ Crearemos una nueva aplicación para administrar las publicaciones de nuestro bl
 5 directories, 23 files <br>
 (blog) [RETBOT@RETBOT blog]$  <br>
 
+    tree   
 
 Para asegurarnos de que Django conozca nuestra nueva aplicación, agregue la nueva aplicación a INSTALLED_APPS en nuestro archivo settings.py ubicado en la carpeta config:
 
@@ -334,12 +352,17 @@ Ahora que se creó nuestro nuevo modelo de base de datos, debemos crear un nuevo
 Migrations for 'publicaciones':<br>
   publicaciones/migrations/0001_initial.py<br>
     - Create model Publicacion<br>
+   
+    python manage.py makemigrations publicacioneses 
+   
 (blog) [RETBOT@RETBOT blog]$ python manage.py migrate<br>
 Operations to perform:<br>
   Apply all migrations: admin, auth, contenttypes, publicaciones, sessions<br>
 Running migrations:<br>
   Applying publicaciones.0001_initial... OK<br>
 (blog) [RETBOT@RETBOT blog]$ <br>
+   
+    python manage.py migrate
 
 ## Admin
 Necesitamos una forma de acceder a nuestros datos. ¡Ingrese el administrador de Django! Primero cree una cuenta de superusuario escribiendo el comando a continuación y siguiendo las instrucciones para configurar un correo electrónico y una contraseña. Tenga en cuenta que al escribir su contraseña, no aparecerá en la pantalla por razones de seguridad.<br>
@@ -351,6 +374,8 @@ Password: <br>
 Password (again): <br>
 Superuser created successfully.<br>
 (blog) [RETBOT@RETBOT blog]$ <br>
+   
+    python manage.py createsuperuser
    
 Ahora comience a ejecutar el servidor Django nuevamente con el comando python manage.py runserver y abra el administrador de Django en http://127.0.0.1:8000/admin/. Inicie sesión con su nueva cuenta de superusuario.<br>
    
