@@ -1,6 +1,5 @@
 # Curso Practico de Django desde Sistemas Operativos GNU Linux
 En este repositorio iremos viendo todo lo necesario para la instalacion de los elementos necesarios 
-Pagina web: https://djangoxblog.herokuapp.com/
 
 # Instalacion del Sistema Operativo
 Para este taller se usara el Sistema operativo Fedora 36
@@ -1644,5 +1643,5 @@ Cambiamos el proyecto a un modelo gratuito.
  ```
 heroku ps:scale web=1  
 ```
-    
-    
+# Proyecto  
+Pagina web: https://djangoxblog.herokuapp.com/
