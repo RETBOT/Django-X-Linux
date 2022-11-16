@@ -228,6 +228,8 @@ INSTALLED_APPS = [ <br>
     'blog', <br>
 ] <br>
 
+    python manage.py runserver
+   
 (blog) [RETBOT@RETBOT blog]$ python manage.py runserver <br>
 Watching for file changes with StatReloader <br>
 Performing system checks... <br>
