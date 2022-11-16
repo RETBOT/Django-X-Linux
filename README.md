@@ -136,3 +136,8 @@ Una vez teniendo el gestor de paquetes de node, procederemos a instalar heroku c
   <br>
   
     sudo npm install heroku
+
+# Creando una aplicación web desde Django
+## Aplicación Blog
+Ahora crearemos una aplicación de Blog que permita a los usuarios crear, editar  eliminar publicaciones. 
+La pagina de inicio enumerara todas las publicaciones del blog y habrá una pagina de detalle dedicada para cada publicación individual. 
