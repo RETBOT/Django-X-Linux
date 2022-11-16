@@ -244,4 +244,58 @@ Quit the server with CONTROL-C.
 Si navega a http://127.0.0.1:8000/
 
 ![Run-Django](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/DjangoRun.png)
+
+Crearemos una nueva aplicación para administrar las publicaciones de nuestro blog 
+^C(blog) [RETBOT@RETBOT blog]python manage.py startapp publicaciones
+(blog) [RETBOT@RETBOT blog]$ tree
+.
+├── blog
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── migrations
+│   │   └── __init__.py
+│   ├── models.py
+│   ├── tests.py
+│   └── views.py
+├── config
+│   ├── asgi.py
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── db.sqlite3
+├── manage.py
+├── Pipfile
+├── Pipfile.lock
+└── publicaciones
+    ├── admin.py
+    ├── apps.py
+    ├── __init__.py
+    ├── migrations
+    │   └── __init__.py
+    ├── models.py
+    ├── tests.py
+    └── views.py
+
+5 directories, 23 files
+(blog) [RETBOT@RETBOT blog]$ 
+
+
+Para asegurarnos de que Django conozca nuestra nueva aplicación, agregue la nueva aplicación a INSTALLED_APPS en nuestro archivo settings.py ubicado en la carpeta config:
+
+# Application definition
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'blog',
+    'publicaciones',  # agg
+]
+
+
+Esto significa que la instalación esa completada. A continuación crearemos nuestro modelo de base de datos para publicaciones de blog.
    
