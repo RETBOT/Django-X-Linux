@@ -149,12 +149,12 @@ Lo primero que haremos será crear un nuevo directorio
 
 Para empezar a configurar nuestro proyecto, iniciamos el entorno virtual:
 
-[RETBOT@RETBOT blog]$ pipenv shell
-Launching subshell in virtual environment...
- . /home/RETBOT/.local/share/virtualenvs/blog-YSH-3orc/bin/activate
+[RETBOT@RETBOT blog]$ pipenv shell <br>
+Launching subshell in virtual environment...<br>
+ . /home/RETBOT/.local/share/virtualenvs/blog-YSH-3orc/bin/activate<br>
 
-(blog) [RETBOT@RETBOT blog]$ django-admin startproject config .
-(blog) [RETBOT@RETBOT blog]$ tree
+(blog) [RETBOT@RETBOT blog]$ django-admin startproject config .<br>
+(blog) [RETBOT@RETBOT blog]$ tree<br>
 .
 ├── config
 │   ├── asgi.py
