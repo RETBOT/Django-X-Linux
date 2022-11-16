@@ -293,5 +293,27 @@ INSTALLED_APPS = [ <br>
 ] <br>
 
 
-Esto significa que la instalación esa completada. A continuación crearemos nuestro modelo de base de datos para publicaciones de blog.
+Esto significa que la instalación esa completada. A continuación crearemos nuestro modelo de base de datos para publicaciones de blog.<br>
+ 
+## Modelos de base de datos
+#### publicaciones/models.py
+from django.db import models <br>
+from django.contrib.auth import get_user_model<br>
+
+##### Create your models here.
+class Publicacion(models.Model):<br>
+  titulo = models.CharField(max_length=200)<br>
+  autor = models.ForeignKey(<br>
+        get_user_model(),<br>
+        on_delete=models.CASCADE,<br>
+    )<br>
+  cuerpo = models.TextField()<br>
+<br>
+  def __str__(self):<br>
+    return self.titulo<br>
+<br>
+En la parte superior, estamos importando los modelos de la clase y luego creando una subclase de models.Model llamada Publicación.<br>
+Al usar esta funcionalidad de subclase, automáticamente tenemos acceso a todo dentro de django.db.models.Models y podemos agregar campos y métodos adicionales según se desee. <br>
+Para el titulo, estamos limitando la longitud a 200 caracteres y para el cuerpo estamos usando un TextField que se expandira automaticamente según sea necesario para adaptarse al texto del usuario. Hay muchos tipos de campos disponibles en Django; puedes ver la lista completa aquí: https://es.acervolima.com/lista-de-campos-y-tipos-de-datos-del-modelo-django/ <br>
    
+Para el campo de autor, usamos una ForeignKey que permite una relacion de muchos a uno. Eso significara que un usuario determinado puede ser el autor de muchas publicaciones de blog diferentes, pero no al reves. La referencia es al modelo de usuario integrado que Django proporciona para la autenticacion. Para todas las relaciones de muchos a uno, como ForeignKey, tambien debemos especificar una opcion on_delete. <br>
