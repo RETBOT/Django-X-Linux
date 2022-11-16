@@ -393,3 +393,48 @@ Agreguemos dos publicaciones de blog para que tengamos algunos datos de muestra 
 ![Pub2-Django](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/Publicacion2.png)   
 <br>
 Ahora que nuestro modelo de base de datos está completo, necesitamos crear las vistas, URL y plantillas necesarias para que podamos mostrar la información en nuestra aplicación web.<br>
+   
+   
+## URLs
+Queremos mostrar las publicaciones de nuestro blog en la página de inicio, así que, como en clases anteriores, primero configuraremos nuestras URLConfs a nivel de proyecto y luego nuestras URLConfs a nivel de aplicación para lograr esto. Tenga en cuenta que "nivel de proyecto" significa en la misma carpeta principal que las carpetas config, blog app y publicaciones app.<br>
+
+Cree un nuevo archivo urls.py dentro de nuestro blog y en las publicaciones:<br>
+![Urls1-Django](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/UrlsBlog.png)
+![Urls2-Django](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/UrlsPublicaciones.png) 
+<br>
+   
+Ahora agregaremos el siguiente código: <br>
+.# blog/urls.py <br>
+from django.urls import path <br>
+from .views import VistaPaginaInicio <br>
+ <br>
+urlpatterns = [ <br>
+  path('', VistaPaginaInicio.as_view(), name='inicio'), <br>
+] <br>
+ <br>
+.# publicaciones/urls.py <br>
+from django.urls import path <br>
+from .views import VistaListaPublicaciones <br>
+ <br>
+urlpatterns = [ <br>
+    path('',VistaListaPublicaciones.as_view(), name='lista_publicaciones'), <br>
+] <br>
+ <br>
+Estamos importando nuestras vistas que se crearán próximamente en la parte superior. La cadena vacía '' le dice a Python que coincida con todos los valores y la convertimos en una URL nombrada, inicio, a la que podemos referirnos en nuestras vistas más adelante. Si bien es opcional agregar una URL con nombre, es una práctica recomendada que debe adoptar, ya que ayuda a mantener las cosas organizadas a medida que aumenta la cantidad de URL.
+ <br>
+También deberíamos actualizar nuestro archivo urls.py a nivel de proyecto para que sepa reenviar todas las solicitudes directamente a la aplicación del blog.
+ <br>
+   
+from django.contrib import admin <br>
+from django.urls import path, include <br>
+ <br>
+urlpatterns = [ <br>
+    path('admin/', admin.site.urls), <br>
+    path('',include('blog.urls')), <br>
+    path('publicaciones/', include('publicaciones.urls')), <br>
+] <br>
+ <br>   
+Hemos agregado include en la segunda y tercer línea un patrón de URL con una expresión regular de cadena vacía "" que indica que las solicitudes de URL deben redirigirse tal cual a las URL del blog y a las URL de publicaciones para obtener más instrucciones.   
+ <br>   
+   
+   
