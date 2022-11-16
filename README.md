@@ -5,7 +5,7 @@ En este repositorio iremos viendo todo lo necesario para la instalacion de los e
 # Instalacion del Sistema Operativo
 Para este taller se usara el Sistema operativo Fedora 36
 <div align="center"> 
-![Fedora-Logo](https://github.com/IGerardoJR/testImages/raw/main/ImagenesGit/Fedora-logo.png)
+![Fedora-Logo](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/LogoFedora.png)
 </div>
 
 Por lo que deberemos de ir al siguiente link para obtener la ISO.
