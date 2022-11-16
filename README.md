@@ -1,6 +1,6 @@
 # Curso Practico de Django desde Sistemas Operativos GNU Linux
 En este repositorio iremos viendo todo lo necesario para la instalacion de los elementos necesarios 
-
+Pagina web: https://djangoxblog.herokuapp.com/
 
 # Instalacion del Sistema Operativo
 Para este taller se usara el Sistema operativo Fedora 36
@@ -456,5 +456,8 @@ class VistaListaPublicaciones(ListView): <br>
 <br> 
 En las dos líneas superiores importamos ListView y nuestro modelo de base de datos Publicacion. Luego subclasificamos ListView y agregamos enlaces a nuestro modelo y plantilla. Esto nos ahorra mucho código en comparación con implementarlo todo desde cero. <br> 
    
+## Templates
+Con nuestras URLConfs y vistas ahora completas, solo nos falta la tercera pieza del rompecabezas: las plantillas. Como ya vimos en clases anteriores, podemos heredar de otras plantillas para mantener nuestro código limpio. Por lo tanto, comenzaremos con un archivo base.html, un archivo inicio.html y un archivo lista_publicaciones.html que heredan de él. Luego, más tarde, cuando agreguemos plantillas para crear y editar publicaciones de blog, también pueden heredar de base.html. <br>
+Comience creando nuestro directorio de plantillas a nivel de proyecto con los tres archivos de plantilla. <br>
    
-   
+![Django-plantillas](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/plantillas.png)
