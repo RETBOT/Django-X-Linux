@@ -627,3 +627,402 @@ python manage.py runserver
 Entramos en http://127.0.0.1:8000/admin y creamos una nueva publicación <br>
 ![Img-Publicacion](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/PublicacionImg.png)   
    
+## Bootstrap
+Entramos al archivo base.html ubicado en las plantillas <br>
+``` 
+<head>
+  <meta charset="UTF-8">
+  <title>Blog Django {% block title %}{% endblock title %}</title>
+  <meta name="viewport" content="with=device.width, initial-scale=1, 
+      shrink-to-fit=no">
+  <!-- CSS BootStrap -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"
+    rel="stylesheet">
+</head>
+```    
+   
+y al final del archivo
+```  
+<!-- JavaScript Opcional -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      crossorigin="anonymous"></script>
+  </body>
+</html>
+```     
+    
+### Ahora personalizaremos nuestro blog    
+#### base.html    
+```        
+<!-- plantillas/base.html -->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Blog Django {% block title %}{% endblock title %}</title>
+  <meta name="viewport" content="with=device.width, initial-scale=1, 
+      shrink-to-fit=no">
+  <!-- CSS BootStrap -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous"
+    rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'inicio' %}">
+      Blog Django
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      {% if user.is_authenticated %}
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link dropdown-toggle" href="#" role="button" id="navbarDropdown" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Blogs
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">
+              Blogs
+            </a>
+            <a class="dropdown-item" href="#">
+              Nuevo
+            </a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link dropdown-toggle" href="#" role="button" id="navbarDropdown" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            {{ user.username }}
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">
+              Cambiar Contraseña
+            </a>
+            <a class="dropdown-item" href="#">
+              Salir
+            </a>
+          </div>
+        </li>
+      </ul>
+      {% else %}
+      <form class="form-inline ml-auto">
+        <a href="#" class="btn btn-outline-secondary">
+          Acceder
+        </a>
+        <a href="#" class="btn btn-primary ml-2">
+          Registrarse
+        </a>
+      </form>
+      {% endif %}
+    </div>
+  </nav>
+    {% block content %}
+    
+    {% endblock content %}
+  <!-- JavaScript Opcional -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+</body>
+</html>  
+```        
+#### inicio.html    
+```  
+<!-- plantillas/inicio.html -->
+{% extends 'base.html' %}
+
+{% block title%}- Inicio{% endblock title%}
+
+{% block content %}
+<main role="main" class="container">
+  <h1 class="display-4">Blog Django</h1>
+  <div class="jumbotron">
+    <p class="lead">Un blog hecho con Django.</p>
+    <p class="lead">
+      <a class="btn btn-lg btn-primary" 
+      href="{% url 'lista_publicaciones' %}" 
+      role="button">Entrar</a>
+    </p>
+  </div>
+</main>
+{% endblock content %}    
+```      
+#### lista_publicaciones.html 
+```  
+<!-- plantillas/lista_publicaciones.html -->
+{% extends 'base.html' %}
+
+{% block title %} - Publicaciones {% endblock title %}
+
+{% block content %}
+<br>
+<div class="jumbotron p-md-2 text-white rounded bg-dark">
+  <h1 class="display-4 font-italic text-center" >Publicaciones</h1>
+</div>
+
+  {% for pub in object_list %}
+
+  <div class="col-md-12">
+    <div class="card flex-md-row mb-3 box-shadow h-md-270">
+      <div class="card-body d-flex flex-column align-items-center">
+        <strong class="d-inline-block mb-2 text-primary">Autor: {{ pub.autor }}</strong>
+        <h3 class="mb-0">
+          <a class="text-dark" href="#">{{ pub.titulo }} </a>
+        </h3>
+        <p class="card-text mb-auto">{{ pub.cuerpo }} </a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+{% endblock content %}    
+```      
+
+Teniendo nuestra pagina personalizada ahora queda darle mas funcionalidades, por lo cual agregaremos la forma en la que podremos crear una nueva publicación, ver detalladamente, editar la publicación y eliminarla:<br>
+    
+Crearemos los url para poder acceder a las paginas, desde publicaciones/urls.py  <br>
+#### publicaciones/urls.py   
+```     
+# publicaciones/urls.py
+from django.urls import path
+from .views import (
+    VistaListaPublicaciones,
+    VistaCrearPublicacion,
+    VistaEditarPublicacion,
+    VistaDetallePublicacion,
+    VistaEliminarPublicacion,
+    )
+
+urlpatterns = [
+    path('',VistaListaPublicaciones.as_view(), name='lista_publicaciones'),
+    path('nuevo/',VistaCrearPublicacion.as_view(), name='nueva_publicacion'),
+    path('<int:pk>/editar/',VistaEditarPublicacion.as_view(), name='editar_publicacion'),
+    path('<int:pk>/detalle/',VistaDetallePublicacion.as_view(), name='detalle_publicacion'),
+    path('<int:pk>/eliminar/',VistaEliminarPublicacion.as_view(), name='eliminar_publicacion'),
+]    
+```     
+####  publicaciones/views.py   
+```       
+#publicaciones/views.py
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import DeleteView, UpdateView, CreateView
+from django.urls import reverse_lazy
+from .models import Publicacion
+
+# Create your views here.
+class VistaListaPublicaciones(ListView):
+    model = Publicacion
+    template_name = 'lista_publicaciones.html'
+
+class VistaCrearPublicacion(CreateView):
+    model = Publicacion
+    template_name = 'nueva_publicacion.html'
+    fields = ['titulo', 'cuerpo','imagen',]
+    login_url = 'login'
+
+    def form_valid(self, form):
+        form.instance.autor = self.request.user
+        return super().form_valid(form)
+
+class VistaDetallePublicacion(DetailView):
+    model = Publicacion
+    template_name = 'detalle_publicacion.html'
+    context_object_name = 'articulo'
+    login_url = 'login'
+
+class VistaEditarPublicacion(UpdateView):
+    model = Publicacion
+    template_name = 'editar_publicacion.html'
+    fields = ['titulo', 'cuerpo','imagen',]
+    login_url = 'login'
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.autor == self.request.user
+
+class VistaEliminarPublicacion(DeleteView):
+    model = Publicacion
+    template_name = 'eliminar_publicacion.html'
+    success_url = reverse_lazy('lista_publicaciones')
+    login_url = 'login'
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.autor == self.request.user    
+```       
+    
+Agregamos el siguiente código en blog/settings.py, para redireccionar a la página principal:    
+```
+LOGIN_REDIRECT_URL = 'inicio'
+LOGOUT_REDIRECT_URL = 'inicio'    
+```    
+    
+Crearemos 4 nuevos archivos para crear una nueva publicación, ver detalladamente, editar la publicación y eliminarla <br>
+nueva_publicacion.html <br>
+detalle_publicacion.html <br>
+editar_publicacion.html <br>
+eliminar_publicacion.html <br>
+![Django-Templates](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/CRUD.png)   
+ 
+#### Iniciamos modificando nueva_publicacion.html    
+```  
+<!--planillas/nueva_publicacion.html -->
+{% extends 'base.html' %}
+{% block title %} - Nueva Publicacion {% endblock title %}
+
+{% block content %}
+<div class="form-group">
+  <h1>Nueva Publicacion</h1>
+  <form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
+      {{ form.as_p }}
+      <input class="btn btn-success" type="submit" value="Guardar cambios" style="color: black;">
+  </form>
+</div>
+{% endblock content %}
+```  
+Cargamos la direccion http://127.0.0.1:8000/publicaciones/nueva/ para validar que nuestra pagina esta funcionado   <br>  
+![Django-Nueva-Publicacion](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/NuevaPublicacion.png)       
+
+y redireccionamos al usuario a la pagina de detalle  <br>      
+```    
+# publicaciones/models.py
+...
+from django.urls import reverse
+
+# Create your models here.
+class Publicacion(models.Model):
+  titulo = models.CharField(max_length=200)
+  cuerpo = models.TextField()
+  imagen = models.ImageField(upload_to="img_pub", null=True)
+  autor = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+    )
+
+  def __str__(self):
+    return self.titulo
+
+  def get_absolute_url(self):
+        return reverse('detalle_publicacion',args=[str(self.id)])
+```  
+    
+#### Ahora modificaremos detalle publicaciones
+```
+<!-- plantillas/detalle_publicacion.html -->
+{% extends 'base.html' %}
+
+{% block title %} - Detalle Publicacion{% endblock title %}
+
+{% block content %}
+<br>
+
+        <div class="card">
+            <div class="card-header">
+              <div class="jumbotron p-md-2 text-white rounded bg-dark">
+                <h1 class="display-4 font-italic text-center" >{{ pub.titulo }}</h1>
+              </div>
+                <span class="text-muted">Creado por {{ pub.autor }}</span>
+            </div>
+            <div class="card-body">
+                {{ pub.cuerpo }}
+            </div>
+            {% if pub.imagen.url != null %}
+            <center>
+              <img class="card-img-right flex-auto d-none d-md-block figure-img" width="400" height="300" 
+              src="{{ pub.imagen.url }}" 
+              alt="Imagen blog">
+            </center>
+            {% endif %}
+            </div>
+            
+            <div class="card-footer text-center text-muted">
+                <a href="#">Editar</a> | 
+                <a href="#">Eliminar</a> |
+                <a href="#">Volver a Publicaciones</a>
+            </div>
+        </div>
+{% endblock content %}
+``` 
+    
+y configuramos la ruta en lista publicación, en plantillas/lista_publicaciones.html
+``` 
+<a class="text-dark" href="{% url 'detalle_publicacion' pub.pk %}">{{ pub.titulo }} </a>
+```  
+También configuramos la pagina principal en plantillas/base.html   
+```   
+<a class="dropdown-item" href="{% url 'lista_publicaciones' %}">
+   Blogs
+</a>
+<a class="dropdown-item" href="{% url 'nueva_publicacion' %}">
+   Nuevo
+</a>  
+```  
+    
+#### Ahora configuraremos editar_publicaciones.html de plantillas    
+```
+<!-- plantillas/editar_publicacion.html -->
+{% extends 'base.html' %}
+
+{% block title %} - Editar Publicación{% endblock title %}
+
+{% block content %}
+<h1>Editar articulo</h1>
+<form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input class="btn btn-success ml-2" type="submit" value="Guardar cambios" style="color: black;">
+</form>
+{% endblock content %} 
+```
+    
+#### y eliminar_publicaciones.html de plantillas  
+```
+<!-- plantillas/eliminar_publicaciones.html -->
+{% extends 'base.html' %}
+
+{% block title %} - Eliminar Publicación{% endblock title %}
+
+{% block content %}
+    <h1>Eliminar articulo</h1>
+    <form action="" method="post">{% csrf_token %}
+        <p>¿Está completamente seguro de que desea eliminar "{{ publicacion.titulo }}" ? </p>
+        <input class="btn btn-danger ml-2" type="submit" value="Confirmar eliminarción" style="color: black;">        
+    </form>
+{% endblock content %} 
+```
+    
+#### en detalle_publicacion.html de plantillas agregaremos las urls
+``` 
+<div class="card-footer text-center text-muted">
+     <a href="{% url 'editar_publicacion' pub.pk %}">Editar</a> | 
+     <a href="{% url 'eliminar_publicacion' pub.pk %}">Eliminar</a> |
+     <a href="{% url 'lista_publicaciones' %}">Volver a Publicaciones</a>
+</div>
+```
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
