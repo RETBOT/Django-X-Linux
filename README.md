@@ -1519,4 +1519,47 @@ Los cuales tendran los siguientes codigos:
 ```
     
     
+## Configuración de privacidad  
+Entramos a views.py de publicaciones e importamos lo siguiente 
+``` 
+    from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    UserPassesTestMixin
+    )
+```
+Agregamos  LoginRequiredMixin a la vista crear publicacion:  
+```   
+class VistaCrearPublicacion(LoginRequiredMixin, CreateView):
+    model = Publicacion
+    template_name = 'nueva_publicacion.html'
+    fields = ['titulo', 'cuerpo','imagen']
+
+    login_url = 'login'
     
+    def form_valid(self, form):
+        form.instance.autor = self.request.user
+        return super().form_valid(form)
+```  
+y LoginRequiredMixin, UserPassesTestMixin a editar y eliminar
+```  
+class VistaEditarPublicacion(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Publicacion
+    template_name = 'editar_publicacion.html'
+    fields = ['titulo', 'cuerpo','imagen',]
+    login_url = 'login'
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.autor == self.request.user
+
+class VistaEliminarPublicacion(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Publicacion
+    template_name = 'eliminar_publicacion.html'
+    success_url = reverse_lazy('lista_publicaciones')
+    login_url = 'login'
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.autor == self.request.user
+```   
+Esto para que solo el creador de la publicación pueda eliminar la publicación   
