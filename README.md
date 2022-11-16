@@ -474,15 +474,15 @@ TEMPLATES = [ <br>
 ]   <br>
    
    
-Luego actualice la plantilla base.html de la siguiente manera.
-<!-- plantillas/base.html -->
-<html>
-  <head>
-    <title>Blog Django</title>
-  </head>
-  <body>
-      {% block content %}
-     
-      {% endblock content %}
-  </body>
-</html>   
+Luego actualice la plantilla base.html de la siguiente manera. <br>
+<! -- plantillas/base.html --> <br>
+<h tml> <br>
+  <h ead> <br>
+    <t itle>Blog Django</title> <br>
+  </h ead> <br>
+  <b ody> <br>
+      {% block content %} <br>
+      <br>
+      {% endblock content %} <br>
+  </b ody> <br>
+</h tml>    <br>
