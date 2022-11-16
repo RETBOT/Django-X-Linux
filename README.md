@@ -5,7 +5,7 @@ En este repositorio iremos viendo todo lo necesario para la instalacion de los e
 # Instalacion del Sistema Operativo
 Para este taller se usara el Sistema operativo Fedora 36
 <div align="center"> 
-<img src="https://github.com/IGerardoJR/testImages/raw/main/ImagenesGit/Fedora-logo.png" width="300" height="360" ></img>
+![Fedora-Logo](https://github.com/IGerardoJR/testImages/raw/main/ImagenesGit/Fedora-logo.png)
 </div>
 
 Por lo que deberemos de ir al siguiente link para obtener la ISO.
@@ -141,3 +141,10 @@ Una vez teniendo el gestor de paquetes de node, procederemos a instalar heroku c
 ## Aplicación Blog
 Ahora crearemos una aplicación de Blog que permita a los usuarios crear, editar  eliminar publicaciones. 
 La pagina de inicio enumerara todas las publicaciones del blog y habrá una pagina de detalle dedicada para cada publicación individual. 
+
+### Configuración inicial: 
+Lo primero que haremos será crear un nuevo directorio
+[RETBOT@RETBOT ~]$ mkdir blog
+[RETBOT@RETBOT ~]$ cd blog
+[RETBOT@RETBOT blog]$ pipenv install django
+![Instalación-Django](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/instalacionDjango.png)
