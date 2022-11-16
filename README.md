@@ -1003,6 +1003,313 @@ También configuramos la pagina principal en plantillas/base.html
 </div>
 ```
     
+## Administrar cuentas de usuarios
+Iniciaremos creando una aplicación llamada cuentas
+(blog) [RETBOT@RETBOT blog]$ python manage.py startapp cuentas
+``` 
+python manage.py startapp cuentas
+``` 
+(blog) [RETBOT@RETBOT blog]$ tree  
+```   
+tree  
+``` 
+. <br>
+├── blog <br>
+│   ├── admin.py <br>
+│   ├── apps.py <br>
+│   ├── __init__.py <br>
+│   ├── migrations <br>
+│   │   └── __init__.py <br>
+│   ├── models.py <br>
+│   ├── tests.py <br>
+│   ├── urls.py <br>
+│   └── views.py <br>
+├── config <br>
+│   ├── asgi.py <br>
+│   ├── __init__.py <br>
+│   ├── settings.py <br>
+│   ├── urls.py <br>
+│   └── wsgi.py <br>
+├── cuentas <br>
+│   ├── admin.py <br>
+│   ├── apps.py <br>
+│   ├── __init__.py <br>
+│   ├── migrations <br>
+│   │   └── __init__.py <br>
+│   ├── models.py <br>
+│   ├── tests.py <br>
+│   └── views.py <br>
+├── db.sqlite3 <br>
+├── manage.py <br>
+├── media <br>
+│   └── img_pub <br>
+│       ├── logo2.png <br>
+│       └── logo.jpg <br>
+├── Pipfile <br>
+├── Pipfile.lock <br>
+├── plantillas <br>
+│   ├── base.html <br>
+│   ├── detalle_publicacion.html <br>
+│   ├── editar_publicacion.html <br>
+│   ├── eliminar_publicacion.html <br>
+│   ├── inicio.html <br>
+│   ├── lista_publicaciones.html <br>
+│   └── nueva_publicacion.html <br>
+├── publicaciones <br>
+│   ├── admin.py <br>
+│   ├── apps.py <br>
+│   ├── __init__.py <br>
+│   ├── migrations <br>
+│   │   ├── 0001_initial.py <br>
+│   │   └── __init__.py <br>
+│   ├── models.py <br>
+│   ├── tests.py <br>
+│   ├── urls.py <br>
+│   └── views.py <br>
+└── static <br>
+ <br>
+11 directories, 45 files  <br>
+<br>    
+Agregamos la nueva aplicación a config/settings.py de config para que pueda ser reconocido 
+```  
+# Application definition
+INSTALLED_APPS = [
+...
+
+     # locales
+    'blog',
+    'publicaciones',
+    'cuentas', 
+]
+```
+y también la configuracion de cuentas de usuario personalizada debro de config/settings.py
+```
+AUTH_USER_MODEL = 'cuentas.UsuarioPers'
+``` 
+despues entramos a urls.py de config:  
+```
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('cuentas/', include('django.contrib.auth.urls')), #
+    path('cuentas/', include('cuentas.urls')), #
+    path('',include('blog.urls')),
+    path('publicaciones/', include('publicaciones.urls')),
+]
+``` 
+Agregaremos un nuevo archivo llamado urls.py en cuentas  
+![Django-UrlsCuentas](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/UrlsCuentas.png)  
+y agregaremos lo siguiente:    
+``` 
+# cuentas/urls.py
+from urllib.parse import urlparse
+from django.urls import path
+from .views import VistaRegistro
+
+urlpatterns = [
+    path('registro/', VistaRegistro.as_view(), name='signup'),
+]
+``` 
+y en view.py
+``` 
+# cuentas/view.py 
+from audioop import reverse
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from django.forms import FormularioCreacionUsuarioPers
+
+# Create your views here.
+class VistaRegistro(CreateView):
+    form_class = FormularioCreacionUsuarioPers
+    success_url = reverse_lazy('login')
+    template_name = 'registration/signup.html'
+```  
+Ahora configuraremos nuestros modelos de cuentas    
+```    
+#cuentas/models.py
+from tokenize import blank_re
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+# Create your models here.
+
+class UsuarioPers(AbstractUser):
+    nombre = models.CharField(max_length=50)
+    email = models.CharField(max_length=100)
+    edad = models.PositiveIntegerField(null = True, blank = True)
+
+```  
+Despues la configuracion de admin.py de cuentas:
+```  
+#cuentas/admin.py
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from .forms import FormularioCambioUsuarioPers, FormularioCreacionUsuarioPers
+from .models import UsuarioPers
+
+# Register your models here.
+class UsuarioPersAdmin(UserAdmin):
+    add_form = FormularioCreacionUsuarioPers
+    form = FormularioCambioUsuarioPers
+    model = UsuarioPers
+    list_display = ['email', 'username', 'edad', 'is_staff',]
+    fieldsets = UserAdmin.fieldsets + (
+        (None, {'fields': ('edad',)}),
+    )
+    add_fieldsets = UserAdmin.add_fieldsets + (
+        (None, {'fields': ('edad',)}),
+    )
+
+admin.site.register(UsuarioPers, UsuarioPersAdmin)
+``` 
+
+Para la configuración de las urls de las cuentas, primero crearemos un archivo llamado urls.py dentro de la aplicación cuentas:
+[Django-Cuentas-URLs](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/UrlsCuentas.png)
+Dentro de urls.py
+``` 
+# cuentas/urls.py
+from urllib.parse import urlparse
+from django.urls import path
+from .views import VistaRegistro
+
+urlpatterns = [
+    path('registro/', VistaRegistro.as_view(), name='signup'),
+]
+``` 
+y configuramos las views.py de cuentas, para tener la vista de usuarios 
+```    
+from audioop import reverse
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from .forms import FormularioCreacionUsuarioPers
+
+# Create your views here.
+class VistaRegistro(CreateView):
+    form_class = FormularioCreacionUsuarioPers
+    success_url = reverse_lazy('login')
+    template_name = 'registration/signup.html'
+``` 
+    
+Después creamos un archivo llamado forms.py dentro de cuentas:
+[Django-FormsCuentas](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/formsCuentas.png)
+```
+#cuentas/froms.py
+from django import forms
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from .models import UsuarioPers
+
+class FormularioCreacionUsuarioPers(UserCreationForm):
+    class Meta(UserCreationForm):
+        model = UsuarioPers
+        fields = ('username','email','edad',)
+
+class FormularioCambioUsuarioPers(UserChangeForm):
+    class Meta:
+        model = UsuarioPers
+        fields = ('username','email','edad',)
+```
+    
+Y después lo agregaremos a admin.py para que pueda ser desplegado en la pagina del administrador 
+```   
+#cuentas/admin.py
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from .forms import FormularioCambioUsuarioPers, FormularioCreacionUsuarioPers
+from .models import UsuarioPers
+
+# Register your models here.
+class UsuarioPersAdmin(UserAdmin):
+    add_form = FormularioCreacionUsuarioPers
+    form = FormularioCambioUsuarioPers
+    model = UsuarioPers
+    list_display = ['email', 'username', 'edad', 'is_staff',]
+    fieldsets = UserAdmin.fieldsets + (
+        (None, {'fields': ('edad',)}),
+    )
+    add_fieldsets = UserAdmin.add_fieldsets + (
+        (None, {'fields': ('edad',)}),
+    )
+
+admin.site.register(UsuarioPers, UsuarioPersAdmin)
+``` 
+Lo que falta es migrar la información a la base de datos, pero tenemos que tener en cuenta, que estamos utilizando un modelo de usuarios personalizados, primero tenemos que comentar 
+``` 
+INSTALLED_APPS = [
+    #'django.contrib.admin',
+…
+]
+``` 
+y también en urls.py de config   
+```  
+urlpatterns = [
+    #path('admin/', admin.site.urls),
+  ...
+] 
+``` 
+Después eliminaremos las migraciones de publicaciones ya que estamos utilizando los modelos de usuarios y causa conflicto en la migración de usuario
+[Django-Elim-Migracion](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/ElimMigracion.png)  
+Iniciamos las migraciones de la aplicación cuentas <br>
+    
+(blog) [RETBOT@RETBOT blog]$ python manage.py makemigrations cuentas <br>
+Migrations for 'cuentas': <br>
+  cuentas/migrations/0001_initial.py <br>
+    - Create model UsuarioPers <br>
+    
+```   
+python manage.py makemigrations cuentas
+``` 
+    
+(blog) [RETBOT@RETBOT blog]$ python manage.py migrate <br>
+Operations to perform: <br>
+  Apply all migrations: auth, contenttypes, cuentas, sessions <br>
+Running migrations: <br>
+  Applying cuentas.0001_initial... OK <br>
+```  
+python manage.py migrate 
+```   
+y después des-comentamos el código comentado anteriormente y hacemos la migración en publicaciones   <br> 
+(blog) [RETBOT@RETBOT blog]$ python manage.py makemigrations publicaciones <br>
+Migrations for 'publicaciones': <br>
+  publicaciones/migrations/0001_initial.py <br>
+    - Create model Publicacion     <br>
+    
+```   
+python manage.py makemigrations publicaciones
+``` 
+    
+(blog) [RETBOT@RETBOT blog]$ python manage.py migrate <br>
+Operations to perform: <br>
+  Apply all migrations: admin, auth, contenttypes, cuentas, publicaciones, sessions <br>
+Running migrations: <br>
+  No migrations to apply. <br>
+(blog) [RETBOT@RETBOT blog]$  <br>  
+
+```  
+python manage.py migrate
+``` 
+    
+Como cambiamos autenticación de usuario tenemos que crear nuevamente un usuario de administración <br> 
+(blog) [RETBOT@RETBOT blog]$ python manage.py createsuperuser <br> 
+Username: admin <br> 
+Email: robertoesquiveltr16@gmail.com <br> 
+Password:  <br> 
+Password (again):  <br> 
+Superuser created successfully. <br> 
+(blog) [RETBOT@RETBOT blog]$  <br> 
+    
+```   
+python manage.py createsuperuser
+```   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
