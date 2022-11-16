@@ -436,5 +436,25 @@ urlpatterns = [ <br>
  <br>   
 Hemos agregado include en la segunda y tercer línea un patrón de URL con una expresión regular de cadena vacía "" que indica que las solicitudes de URL deben redirigirse tal cual a las URL del blog y a las URL de publicaciones para obtener más instrucciones.   
  <br>   
+
+   
+## Vistas
+Vamos a utilizar vistas basadas en clases, pero si quieres ver una forma basada en funciones para crear una aplicación de blog, te recomiendo el Tutorial de Django Girls. <br> 
+.# blog/views.py <br> 
+from django.views.generic import TemplateView <br> 
+ <br> 
+class VistaPaginaInicio(TemplateView): <br> 
+  template_name = 'inicio.html' <br> 
+   <br> 
+.#publicaciones/views.py <br> 
+from django.views.generic import ListView <br> 
+from .models import Publicacion <br> 
+ <br> 
+class VistaListaPublicaciones(ListView): <br> 
+    model = Publicacion <br> 
+    template_name = 'lista_publicaciones.html'   <br> 
+<br> 
+En las dos líneas superiores importamos ListView y nuestro modelo de base de datos Publicacion. Luego subclasificamos ListView y agregamos enlaces a nuestro modelo y plantilla. Esto nos ahorra mucho código en comparación con implementarlo todo desde cero. <br> 
+   
    
    
