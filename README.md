@@ -144,15 +144,15 @@ La pagina de inicio enumerara todas las publicaciones del blog y habrá una pagi
 Lo primero que haremos será crear un nuevo directorio
 [RETBOT@RETBOT ~]$ mkdir blog
    
-   mkdir blog
+    mkdir blog
    
 [RETBOT@RETBOT ~]$ cd blog
    
-   cd blog
+    cd blog
    
 [RETBOT@RETBOT blog]$ pipenv install django
    
-   pipenv install django
+    pipenv install django
    
 ![Instalación-Django](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/instalacionDjango.png)
 
