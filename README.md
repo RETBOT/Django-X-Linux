@@ -140,7 +140,7 @@ Una vez teniendo el gestor de paquetes de node, procederemos a instalar heroku c
 Ahora crearemos una aplicación de Blog que permita a los usuarios crear, editar  eliminar publicaciones. 
 La pagina de inicio enumerara todas las publicaciones del blog y habrá una pagina de detalle dedicada para cada publicación individual. 
 
-### Configuración inicial: 
+## Configuración inicial: 
 Lo primero que haremos será crear un nuevo directorio
 [RETBOT@RETBOT ~]$ mkdir blog
 [RETBOT@RETBOT ~]$ cd blog
@@ -319,7 +319,7 @@ Para el campo de autor, usamos una ForeignKey que permite una relacion de muchos
 
 Ahora que se creó nuestro nuevo modelo de base de datos, debemos crear un nuevo registro de migración para él y migrar el cambio a nuestra base de datos. Detenga el servidor con Control + c. Este proceso de dos pasos se puede completar con el siguiente comando:<br>
 
-(blog) [RETBOT@RETBOT blog]python manage.py makemigrations publicacioneses<br>
+(blog) [RETBOT@RETBOT blog]$ python manage.py makemigrations publicacioneses<br>
 Migrations for 'publicaciones':<br>
   publicaciones/migrations/0001_initial.py<br>
     - Create model Publicacion<br>
@@ -329,3 +329,31 @@ Operations to perform:<br>
 Running migrations:<br>
   Applying publicaciones.0001_initial... OK<br>
 (blog) [RETBOT@RETBOT blog]$ <br>
+
+## Admin
+Necesitamos una forma de acceder a nuestros datos. ¡Ingrese el administrador de Django! Primero cree una cuenta de superusuario escribiendo el comando a continuación y siguiendo las instrucciones para configurar un correo electrónico y una contraseña. Tenga en cuenta que al escribir su contraseña, no aparecerá en la pantalla por razones de seguridad.<br>
+   
+(blog) [RETBOT@RETBOT blog]$ python manage.py createsuperuser<br>
+Username (leave blank to use 'retbot'): admin<br>
+Email address: blogdjango4@gmail.com <br>
+Password: <br>
+Password (again): <br>
+Superuser created successfully.<br>
+(blog) [RETBOT@RETBOT blog]$ <br>
+   
+Ahora comience a ejecutar el servidor Django nuevamente con el comando python manage.py runserver y abra el administrador de Django en http://127.0.0.1:8000/admin/. Inicie sesión con su nueva cuenta de superusuario.<br>
+   
+![Admin1-Django](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/Admin.png)
+
+Ahora agregaremos las publicaciones al administrador, entraremos a  publicaciones/admin.py <br>
+from django.contrib import admin<br>
+from .models import Publicacion<br>
+admin.site.register(Publicacion)<br>
+
+Si actualiza la página, verá la actualización.<br>
+![Admin2-Django](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/Admin2.png)   
+Agreguemos dos publicaciones de blog para que tengamos algunos datos de muestra con los que trabajar. Haga clic en el botón + Agregar junto a Publicaciones para crear una nueva entrada. Asegúrate de agregar un "autor" a cada publicación también, ya que por defecto todos los campos del modelo son obligatorios. Si intenta ingresar una publicación sin un autor, verá un error. Si quisiéramos cambiar esto, podríamos agregar opciones de campo a nuestro modelo para hacer que un campo dado sea opcional o llenarlo con un valor predeterminado. <br>
+![Pub1-Django](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/Publicacion1.png)
+![Pub2-Django](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/Publicacion2.png)   
+<br>
+Ahora que nuestro modelo de base de datos está completo, necesitamos crear las vistas, URL y plantillas necesarias para que podamos mostrar la información en nuestra aplicación web.<br>
