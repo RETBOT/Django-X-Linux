@@ -296,11 +296,10 @@ INSTALLED_APPS = [ <br>
 Esto significa que la instalación esa completada. A continuación crearemos nuestro modelo de base de datos para publicaciones de blog.<br>
  
 ## Modelos de base de datos
-#### publicaciones/models.py
+#### #publicaciones/models.py
 from django.db import models <br>
 from django.contrib.auth import get_user_model<br>
 
-##### Create your models here.
 class Publicacion(models.Model):<br>
   titulo = models.CharField(max_length=200)<br>
   autor = models.ForeignKey(<br>
