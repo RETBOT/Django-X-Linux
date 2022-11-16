@@ -404,7 +404,7 @@ Cree un nuevo archivo urls.py dentro de nuestro blog y en las publicaciones:<br>
 <br>
    
 Ahora agregaremos el siguiente código: <br>
-.# blog/urls.py <br>
+ # blog/urls.py <br>
 from django.urls import path <br>
 from .views import VistaPaginaInicio <br>
  <br>
@@ -412,7 +412,7 @@ urlpatterns = [ <br>
   path('', VistaPaginaInicio.as_view(), name='inicio'), <br>
 ] <br>
  <br>
-.# publicaciones/urls.py <br>
+ # publicaciones/urls.py <br>
 from django.urls import path <br>
 from .views import VistaListaPublicaciones <br>
  <br>
