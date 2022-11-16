@@ -1563,3 +1563,86 @@ class VistaEliminarPublicacion(LoginRequiredMixin, UserPassesTestMixin, DeleteVi
         return obj.autor == self.request.user
 ```   
 Esto para que solo el creador de la publicación pueda eliminar la publicación   
+
+## INSTALACION Y CONFIGURACION DE HEROKU
+Heroku por así decirlo es como una nube, en la cual podremos subir nuestra aplicación web. <br>
+Existen diversas formas de instalar heroku en gnu/Linux, mas sin embargo utilizaremos una forma global de instalar en cualquier distribución Linux.  <br>
+Para ello se hara con el siguiente comando :
+curl https://cli-assets.heroku.com/install.sh | sh
+```
+curl https://cli-assets.heroku.com/install.sh | sh
+```
+Una vez hecho esto, podremos continuar con los siguientes pasos.    
+
+## CONFIGURACION DE HEROKU 
+Ejecutar pipenv lock para generar el Pipfile.lock apropiado <br>
+```  
+pipenv lock
+```
+Luego creamos un Procfile que le diga a Heroku como ejecutar el servidor remoto vivirá nuestro código.
+```
+touch Procfile
+```    
+Por ahora, le estamos diciendo a Heroku en el archivo Procfile que use gunicorn como nuestro servidor de producción y busque en nuestro archivo config.wsgi para obtener mas instrucciones.
+```   
+web: gunicorn config.wsgi –log-file – 
+```   
+A continuación, instale gunicorn que usaremos en producción mientras seguimos usando el servidor interno de Django para uso de desarrollo local.
+``` 
+pipenv install gunicorn==19.9.0
+``` 
+Nos regresamos al visual studio a modificar nuestro proyecto de django, nos vamos a la carpeta de config/settings.py . Y modificaremos lo siguiente :  
+```   
+ALLOWED_HOST  = [‘*’] 
+```  
+Esto lo hacemos para que la aplicación no marque error al intentar subir nuestro sitio a heroku <br>
+Con esto hemos terminado los primeros pasos, ahora lo que resta es mandarlo a git. <br>
+    
+Iniciamos el proyecto de git 
+``` 
+git init 
+``` 
+Vemos los archivos si hay archivos ya agregados 
+```     
+git status
+```     
+En caso de que no agregamos con el parámetro –A todos los elementos del directorio actual.
+```     
+git add –A 
+```     
+Hacemos el commit mas un comentario para dar a conocer que hicimos en esta version
+```     
+git commit –m “Nuevas actualizaciones para el despliegue en Heroku”
+```     
+Lo mandamos a nuestro git hub para juntarlo con el proyecto
+``` 
+git push –u origin master 
+``` 
+    
+## Despliegue de Heroku 
+Iniciamos sesión en nuestra cuenta de Heroku.
+```
+heroku login
+```
+Luego, ejecute el comando de creación y Heroku creara aleatoriamente un nombre de aplicación para usted.
+``` 
+heroku create 
+``` 
+Configure git para usar el nombre de su nueva aplicación. 
+```
+heroku git:remote –a nombre-proyecto-generado-1234
+```
+Le decimos a heroku que ignore los archivos estáticos.
+```
+heroku config:set DISABLE_COLLECTSTATIC=1
+```
+Hacemos el push al master de heroku
+```
+git push heroku master
+```
+Cambiamos el proyecto a un modelo gratuito.
+ ```
+heroku ps:scale web=1  
+```
+    
+    
