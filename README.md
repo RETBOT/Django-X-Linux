@@ -671,12 +671,7 @@ y al final del archivo
     <a class="navbar-brand" href="{% url 'inicio' %}">
       Blog Django
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div id="navbarSupportedContent">
       {% if user.is_authenticated %}
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
