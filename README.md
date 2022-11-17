@@ -1454,6 +1454,12 @@ class VistaEliminarPublicacion(LoginRequiredMixin, UserPassesTestMixin, DeleteVi
         obj = self.get_object()
         return obj.autor == self.request.user
 ```   
+y en settings.py de config agregamos, para redireccionar al usuario a la página de inicio:  
+```  
+LOGIN_REDIRECT_URL = 'inicio'
+LOGOUT_REDIRECT_URL = 'inicio'  
+```  
+
 Esto para que solo el creador de la publicación pueda eliminar la publicación   
 
 ## INSTALACION Y CONFIGURACION DE HEROKU
