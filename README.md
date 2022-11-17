@@ -1213,7 +1213,7 @@ python manage.py createsuperuser
     
 ## Login  
 Creamos una carpeta en plantillas llamada registration y dentro de la carpeta creamos un nuevo archivo llamado login.html
-[plantillas_login](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/plantillas_login.png)   
+![plantillas_login](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/plantillas_login.png)   
 ``` 
 <!-- plantillas/registration/login.html -->
 {% extends 'base.html' %}
