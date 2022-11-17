@@ -484,23 +484,8 @@ Luego actualice settings.py para que Django identifique como buscar las plantill
 ]  
 ```   
    
-Luego actualice la plantilla base.html de la siguiente manera. <br>
-```
-<! -- plantillas/base.html -->
-<html>
-  <head>
-    <title>Blog Django</title> 
-  </head>
-  <body>
-      {% block content %} 
 
-      {% endblock content %}
-  </body> 
-</html>
-```
-   
-Tenga en cuenta que el código entre {% block content%} y {% endblock content%} se puede completar con otras plantillas. Hablando de eso, aquí está el código para inicio.html. <br>
-
+   <br>
 Luego actualice la plantilla base.html de la siguiente manera.
    
 ```
