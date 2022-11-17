@@ -466,7 +466,7 @@ class VistaListaPublicaciones(ListView):
 En las dos líneas superiores importamos ListView y nuestro modelo de base de datos Publicacion. Luego subclasificamos ListView y agregamos enlaces a nuestro modelo y plantilla. Esto nos ahorra mucho código en comparación con implementarlo todo desde cero. <br> 
    
 ## Templates
-Con nuestras URLConfs y vistas ahora completas, solo nos falta la tercera pieza del rompecabezas: las plantillas. Como ya vimos en clases anteriores, podemos heredar de otras plantillas para mantener nuestro código limpio. Por lo tanto, comenzaremos con un archivo base.html, un archivo inicio.html y un archivo lista_publicaciones.html que heredan de él. Luego, más tarde, cuando agreguemos plantillas para crear y editar publicaciones de blog, también pueden heredar de base.html. <br>
+Con nuestras URLConfs y vistas ahora completas, solo nos falta la tercera pieza del rompecabezas: las plantillas. Por lo tanto, comenzaremos con un archivo base.html, un archivo inicio.html y un archivo lista_publicaciones.html que heredan de él. Luego, más tarde, cuando agreguemos plantillas para crear y editar publicaciones de blog, también pueden heredar de base.html. <br>
 Comience creando nuestro directorio de plantillas a nivel de proyecto con los tres archivos de plantilla. <br>
    
 ![Django-plantillas](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/plantillas.png)
