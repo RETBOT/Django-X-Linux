@@ -409,7 +409,7 @@ Cree un nuevo archivo urls.py dentro de nuestro blog y en las publicaciones:<br>
 Ahora agregaremos el siguiente código: <br>
 ```
 # blog/urls.py 
-from django.urls import path <br>
+from django.urls import path
 from .views import VistaPaginaInicio 
    
 urlpatterns = [ 
