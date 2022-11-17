@@ -599,12 +599,12 @@ urlpatterns += static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
 ```      
 
 Ahora entramos en la terminal:  <br> 
-(blog) [RETBOT@RETBOT blog]$  python manage.py makemigrations blog <br> 
+(blog) [RETBOT@RETBOT blog]$  python manage.py makemigrations publicacion <br> 
 Migrations for 'blog': <br> 
   blog/migrations/0002_publicacion_img.py <br> 
     - Add field img to publicacion    <br> 
 ```  
-python manage.py makemigrations blog   
+python manage.py makemigrations publicacion   
 ```     
 
 (blog) [RETBOT@RETBOT blog]$  python manage.py migrate <br> 
