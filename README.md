@@ -790,55 +790,35 @@ urlpatterns = [
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
 from django.urls import reverse_lazy
-from .models import Publicacion
+from .models import Publicaciones
 
 # Create your views here.
 class VistaListaPublicaciones(ListView):
-    model = Publicacion
-    template_name = 'lista_publicaciones.html'
+  model = Publicaciones
+  template_name = 'lista_publicaciones.html'
 
 class VistaCrearPublicacion(CreateView):
-    model = Publicacion
-    template_name = 'nueva_publicacion.html'
-    fields = ['titulo', 'cuerpo','imagen',]
-    login_url = 'login'
-
-    def form_valid(self, form):
-        form.instance.autor = self.request.user
-        return super().form_valid(form)
+  model = Publicaciones
+  template_name = 'nueva_publicacion.html'
+  fields = ['titulo', 'cuerpo', 'imagen',]
 
 class VistaDetallePublicacion(DetailView):
-    model = Publicacion
-    template_name = 'detalle_publicacion.html'
-    context_object_name = 'pub'
-    login_url = 'login'
-
+  model = Publicaciones
+  template_name = 'detalle_publicacion.html'
+  context_object_name = 'pub'
+  
 class VistaEditarPublicacion(UpdateView):
-    model = Publicacion
-    template_name = 'editar_publicacion.html'
-    fields = ['titulo', 'cuerpo','imagen',]
-    login_url = 'login'
-
-    def test_func(self):
-        obj = self.get_object()
-        return obj.autor == self.request.user
+  model = Publicaciones
+  template_name = 'editar_publicacion.html'
+  fields = ['titulo', 'cuerpo', 'imagen',]
+  context_object_name = 'pub'
 
 class VistaEliminarPublicacion(DeleteView):
-    model = Publicacion
-    template_name = 'eliminar_publicacion.html'
-    success_url = reverse_lazy('lista_publicaciones')
-    login_url = 'login'
-
-    def test_func(self):
-        obj = self.get_object()
-        return obj.autor == self.request.user    
+  model = Publicaciones
+  template_name = 'eliminar_publicacion.html'
+  context_object_name = 'pub'
+  success_url = reverse_lazy('lista_publicaciones') 
 ```       
-    
-Agregamos el siguiente código en blog/settings.py, para redireccionar a la página principal:    
-```
-LOGIN_REDIRECT_URL = 'inicio'
-LOGOUT_REDIRECT_URL = 'inicio'    
-```    
     
 Crearemos 4 nuevos archivos para crear una nueva publicación, ver detalladamente, editar la publicación y eliminarla <br>
 nueva_publicacion.html <br>
