@@ -1073,73 +1073,8 @@ urlpatterns = [
     path('publicaciones/', include('publicaciones.urls')),
 ]
 ``` 
-Agregaremos un nuevo archivo llamado urls.py en cuentas  
-![Django-UrlsCuentas](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/UrlsCuentas.png)  
-y agregaremos lo siguiente:    
-``` 
-# cuentas/urls.py
-from urllib.parse import urlparse
-from django.urls import path
-from .views import VistaRegistro
-
-urlpatterns = [
-    path('registro/', VistaRegistro.as_view(), name='signup'),
-]
-``` 
-y en view.py
-``` 
-# cuentas/view.py 
-from audioop import reverse
-from django.urls import reverse_lazy
-from django.views.generic import CreateView
-from django.forms import FormularioCreacionUsuarioPers
-
-# Create your views here.
-class VistaRegistro(CreateView):
-    form_class = FormularioCreacionUsuarioPers
-    success_url = reverse_lazy('login')
-    template_name = 'registration/signup.html'
-```  
-Ahora configuraremos nuestros modelos de cuentas    
-```    
-#cuentas/models.py
-from tokenize import blank_re
-from django.db import models
-from django.contrib.auth.models import AbstractUser
-# Create your models here.
-
-class UsuarioPers(AbstractUser):
-    nombre = models.CharField(max_length=50)
-    email = models.CharField(max_length=100)
-    edad = models.PositiveIntegerField(null = True, blank = True)
-
-```  
-Despues la configuracion de admin.py de cuentas:
-```  
-#cuentas/admin.py
-from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
-from .forms import FormularioCambioUsuarioPers, FormularioCreacionUsuarioPers
-from .models import UsuarioPers
-
-# Register your models here.
-class UsuarioPersAdmin(UserAdmin):
-    add_form = FormularioCreacionUsuarioPers
-    form = FormularioCambioUsuarioPers
-    model = UsuarioPers
-    list_display = ['email', 'username', 'edad', 'is_staff',]
-    fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('edad',)}),
-    )
-    add_fieldsets = UserAdmin.add_fieldsets + (
-        (None, {'fields': ('edad',)}),
-    )
-
-admin.site.register(UsuarioPers, UsuarioPersAdmin)
-``` 
-
 Para la configuración de las urls de las cuentas, primero crearemos un archivo llamado urls.py dentro de la aplicación cuentas:
-[Django-Cuentas-URLs](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/UrlsCuentas.png)
+![Django-Cuentas-URLs](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/UrlsCuentas.png)
 Dentro de urls.py
 ``` 
 # cuentas/urls.py
@@ -1166,7 +1101,7 @@ class VistaRegistro(CreateView):
 ``` 
     
 Después creamos un archivo llamado forms.py dentro de cuentas:
-[Django-FormsCuentas](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/formsCuentas.png)
+![Django-FormsCuentas](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/formsCuentas.png)
 ```
 #cuentas/froms.py
 from django import forms
