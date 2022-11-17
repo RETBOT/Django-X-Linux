@@ -1156,8 +1156,8 @@ urlpatterns = [
   ...
 ] 
 ``` 
-Después eliminaremos las migraciones de publicaciones ya que estamos utilizando los modelos de usuarios y causa conflicto en la migración de usuario
-[Django-Elim-Migracion](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/ElimMigracion.png)  
+Después eliminaremos las migraciones de publicaciones ya que estamos utilizando los modelos de usuarios y causa conflicto en la migración de usuario <br>
+![Django-Elim-Migracion](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/ElimMigracion.png)  <br>
 Iniciamos las migraciones de la aplicación cuentas <br>
     
 (blog) [RETBOT@RETBOT blog]$ python manage.py makemigrations cuentas <br>
