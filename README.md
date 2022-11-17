@@ -810,7 +810,7 @@ class VistaCrearPublicacion(CreateView):
 class VistaDetallePublicacion(DetailView):
     model = Publicacion
     template_name = 'detalle_publicacion.html'
-    context_object_name = 'publicacion'
+    context_object_name = 'pub'
     login_url = 'login'
 
 class VistaEditarPublicacion(UpdateView):
