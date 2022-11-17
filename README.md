@@ -947,7 +947,7 @@ También configuramos la pagina principal en plantillas/base.html
 {% block title %} - Editar Publicación{% endblock title %}
 
 {% block content %}
-<h1>Editar articulo</h1>
+<h1>Editar publicacion</h1>
 <form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
     {{ form.as_p }}
     <input class="btn btn-success ml-2" type="submit" value="Guardar cambios" style="color: black;">
@@ -963,7 +963,7 @@ También configuramos la pagina principal en plantillas/base.html
 {% block title %} - Eliminar Publicación{% endblock title %}
 
 {% block content %}
-    <h1>Eliminar articulo</h1>
+    <h1>Eliminar publicacion</h1>
     <form action="" method="post">{% csrf_token %}
         <p>¿Está completamente seguro de que desea eliminar "{{ publicacion.titulo }}" ? </p>
         <input class="btn btn-danger ml-2" type="submit" value="Confirmar eliminarción" style="color: black;">        
