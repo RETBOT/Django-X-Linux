@@ -589,7 +589,7 @@ Migrations for 'blog': <br>
   blog/migrations/0002_publicacion_img.py <br> 
     - Add field img to publicacion    <br> 
 ```  
-python manage.py makemigrations publicacion   
+python manage.py makemigrations publicaciones   
 ```     
 
 (blog) [RETBOT@RETBOT blog]$  python manage.py migrate <br> 
