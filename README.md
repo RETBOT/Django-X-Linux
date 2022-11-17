@@ -965,7 +965,7 @@ También configuramos la pagina principal en plantillas/base.html
 {% block content %}
     <h1>Eliminar publicacion</h1>
     <form action="" method="post">{% csrf_token %}
-        <p>¿Está completamente seguro de que desea eliminar "{{ publicacion.titulo }}" ? </p>
+        <p>¿Está completamente seguro de que desea eliminar "{{ object.titulo }}" ? </p>
         <input class="btn btn-danger ml-2" type="submit" value="Confirmar eliminarción" style="color: black;">        
     </form>
 {% endblock content %} 
