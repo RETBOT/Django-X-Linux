@@ -911,9 +911,7 @@ class Publicacion(models.Model):
             </div>
             {% if pub.imagen.url != null %}
             <center>
-              <img class="card-img-right flex-auto d-none d-md-block figure-img" width="400" height="300" 
-              src="{{ pub.imagen.url }}" 
-              alt="Imagen blog">
+              <img class="img-fluid" src="{{ pub.imagen.url }}" alt="Imagen blog">
             </center>
             {% endif %}
             </div>
