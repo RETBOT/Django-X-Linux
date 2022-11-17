@@ -1073,8 +1073,8 @@ urlpatterns = [
     path('publicaciones/', include('publicaciones.urls')),
 ]
 ``` 
-Para la configuración de las urls de las cuentas, primero crearemos un archivo llamado urls.py dentro de la aplicación cuentas:
-![Django-Cuentas-URLs](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/UrlsCuentas.png)
+Para la configuración de las urls de las cuentas, primero crearemos un archivo llamado urls.py dentro de la aplicación cuentas: <br>
+![Django-Cuentas-URLs](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/UrlsCuentas.png) <br>
 Dentro de urls.py
 ``` 
 # cuentas/urls.py
@@ -1100,7 +1100,7 @@ class VistaRegistro(CreateView):
     template_name = 'registration/signup.html'
 ``` 
     
-Después creamos un archivo llamado forms.py dentro de cuentas:
+Después creamos un archivo llamado forms.py dentro de cuentas: <br>
 ![Django-FormsCuentas](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/formsCuentas.png)
 ```
 #cuentas/froms.py
