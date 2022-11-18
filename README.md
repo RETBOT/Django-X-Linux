@@ -2,7 +2,8 @@
 En este repositorio iremos viendo todo lo necesario para la instalacion de los elementos necesarios <br>
 Contacto: <br>
 <a href="https://www.facebook.com/profile.php?id=100003493798278">Isaias Gerardo</a><br>
-<a href="https://www.facebook.com/robertoesquiveltroncoso">Roberto Esquivel</a>
+<a href="https://www.facebook.com/robertoesquiveltroncoso">Roberto Esquivel</a> <br>
+![img-foro](https://github.com/RETBOT/Django-X-Linux/blob/main/imgs/Final%20conferencia%2017%20nov%202022%200911pm.jpeg)
 
 # Instalacion del Sistema Operativo
 Para este taller se usara el Sistema operativo Fedora 36
