@@ -1,5 +1,8 @@
 # Curso Practico de Django desde Sistemas Operativos GNU Linux
-En este repositorio iremos viendo todo lo necesario para la instalacion de los elementos necesarios 
+En este repositorio iremos viendo todo lo necesario para la instalacion de los elementos necesarios <br>
+Contacto: <br>
+<a href="https://www.facebook.com/profile.php?id=100003493798278">Isaias Gerardo</a><br>
+<a href="https://www.facebook.com/robertoesquiveltroncoso">Roberto Esquivel</a>
 
 # Instalacion del Sistema Operativo
 Para este taller se usara el Sistema operativo Fedora 36
